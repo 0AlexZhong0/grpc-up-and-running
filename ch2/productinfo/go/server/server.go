@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	// the path the value defined for the go_package option in the .proto file
@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/0AlexZhong0/productinfo/productinfo"
+	pb "github.com/0AlexZhong0/grpc-up-and-running-protos/productinfo"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -31,9 +31,17 @@ func (s *server) AddProduct(ctx context.Context, in *pb.Product) (*pb.ProductID,
 	}
 
 	s.productMap[in.Id] = in
-	return &pb.ProductId{Value: in.Id}, status.New(codes.OK, "").Err()
+	return &pb.ProductID{Value: in.Id}, status.New(codes.OK, "").Err()
 }
 
+func (s *server) GetProduct(ctx context.Context, in *pb.ProductID) (*pb.Product, error) {
+	value, exists := s.productMap[in.Value]
+	if exists {
+		return value, status.New(codes.OK, "").Err()
+	}
+
+	return nil, status.Errorf(codes.NotFound, "Product does not exist", in.Value)
+}
 const (
 	port = ":50051"
 )
