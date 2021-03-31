@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZBgithub.com/0AlexZhong0/grpc-up-and-running-protos/order_management',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16order_management.proto\x12\tecommerce\x1a\x1egoogle/protobuf/wrappers.proto\"[\n\x05Order\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05items\x18\x02 \x03(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\x02\x12\x13\n\x0b\x64\x65stination\x18\x05 \x01(\t\"!\n\x10SearchOrderQuery\x12\r\n\x05query\x18\x01 \x01(\t2\x8e\x01\n\x0fOrderManagement\x12:\n\x08getOrder\x12\x1c.google.protobuf.StringValue\x1a\x10.ecommerce.Order\x12?\n\x0csearchOrders\x12\x1b.ecommerce.SearchOrderQuery\x1a\x10.ecommerce.Order0\x01\x42\x44ZBgithub.com/0AlexZhong0/grpc-up-and-running-protos/order_managementb\x06proto3'
+  serialized_pb=b'\n\x16order_management.proto\x12\tecommerce\x1a\x1egoogle/protobuf/wrappers.proto\"[\n\x05Order\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05items\x18\x02 \x03(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\x02\x12\x13\n\x0b\x64\x65stination\x18\x05 \x01(\t\"!\n\x10SearchOrderQuery\x12\r\n\x05query\x18\x01 \x01(\t2\xd0\x01\n\x0fOrderManagement\x12:\n\x08getOrder\x12\x1c.google.protobuf.StringValue\x1a\x10.ecommerce.Order\x12?\n\x0csearchOrders\x12\x1b.ecommerce.SearchOrderQuery\x1a\x10.ecommerce.Order0\x01\x12@\n\x0cupdateOrders\x12\x10.ecommerce.Order\x1a\x1c.google.protobuf.StringValue(\x01\x42\x44ZBgithub.com/0AlexZhong0/grpc-up-and-running-protos/order_managementb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_wrappers__pb2.DESCRIPTOR,])
 
@@ -147,7 +147,7 @@ _ORDERMANAGEMENT = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=198,
-  serialized_end=340,
+  serialized_end=406,
   methods=[
   _descriptor.MethodDescriptor(
     name='getOrder',
@@ -166,6 +166,16 @@ _ORDERMANAGEMENT = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_SEARCHORDERQUERY,
     output_type=_ORDER,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='updateOrders',
+    full_name='ecommerce.OrderManagement.updateOrders',
+    index=2,
+    containing_service=None,
+    input_type=_ORDER,
+    output_type=google_dot_protobuf_dot_wrappers__pb2._STRINGVALUE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

@@ -25,6 +25,11 @@ class OrderManagementStub(object):
                 request_serializer=order__management__pb2.SearchOrderQuery.SerializeToString,
                 response_deserializer=order__management__pb2.Order.FromString,
                 )
+        self.updateOrders = channel.stream_unary(
+                '/ecommerce.OrderManagement/updateOrders',
+                request_serializer=order__management__pb2.Order.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_wrappers__pb2.StringValue.FromString,
+                )
 
 
 class OrderManagementServicer(object):
@@ -42,6 +47,12 @@ class OrderManagementServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def updateOrders(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_OrderManagementServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -54,6 +65,11 @@ def add_OrderManagementServicer_to_server(servicer, server):
                     servicer.searchOrders,
                     request_deserializer=order__management__pb2.SearchOrderQuery.FromString,
                     response_serializer=order__management__pb2.Order.SerializeToString,
+            ),
+            'updateOrders': grpc.stream_unary_rpc_method_handler(
+                    servicer.updateOrders,
+                    request_deserializer=order__management__pb2.Order.FromString,
+                    response_serializer=google_dot_protobuf_dot_wrappers__pb2.StringValue.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -96,5 +112,22 @@ class OrderManagement(object):
         return grpc.experimental.unary_stream(request, target, '/ecommerce.OrderManagement/searchOrders',
             order__management__pb2.SearchOrderQuery.SerializeToString,
             order__management__pb2.Order.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def updateOrders(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_unary(request_iterator, target, '/ecommerce.OrderManagement/updateOrders',
+            order__management__pb2.Order.SerializeToString,
+            google_dot_protobuf_dot_wrappers__pb2.StringValue.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

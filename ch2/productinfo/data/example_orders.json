@@ -1,26 +1,26 @@
 {
-  "iPod Air": {
+  "1": {
     "id": "1",
     "items": ["iPod Air 1", "iPod Air 2", "iPod Air 3"],
     "description": "Cool iPod Airs",
     "price": 300.0,
     "destination": "Auckland, New Zealand"
   },
-  "Macbook Air": {
+  "2": {
     "id": "2",
     "items": ["Macbook Air 1", "Macbook Air 2", "Macbook Air 3"],
     "description": "Cool Macbook Airs",
     "price": 14999.0,
     "destination": "Hamilton, New Zealand"
   },
-  "Huawei": {
+  "3": {
     "id": "3",
     "items": ["Huawei Pro", "Huawei Notebook", "Huawei Galaxy"],
     "description": "Huawei defines unthinkables",
     "price": 3000.0,
     "destination": "Auckland, New Zealand"
   },
-  "Game of Thrones": {
+  "4": {
     "id": "4",
     "items": ["Tagerians", "Jon Snow", "The White Walker"],
     "description": "The White Walkers Shall conquer",

@@ -5,10 +5,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
 	"path/filepath"
+	"strings"
 
 	orderManagementPb "github.com/0AlexZhong0/grpc-up-and-running-protos/order_management"
 	pb "github.com/0AlexZhong0/grpc-up-and-running-protos/productinfo"
@@ -63,8 +65,50 @@ func (s *server) GetOrder(ctx context.Context, in *wrappers.StringValue) (*order
 	return resultOrder, status.New(codes.OK, "").Err()
 }
 
+/*
+1. iterate through the items of each order in the orderMap
+
+2. search if the item contains the query, send the order to the stream if so
+
+3. close the stream once the iteration is finished
+*/
+func (s *server) SearchOrders(searchInput *orderManagementPb.SearchOrderQuery, stream orderManagementPb.OrderManagement_SearchOrdersServer) error {
+	// NOTE: the method signature is that it takes the request input argument and a stream
+	for orderKey, order := range s.orderMap {
+		for _, orderItem := range order.Items {
+			// send the current order to the consumer stream
+			if strings.Contains(orderItem, searchInput.Query) {
+				log.Printf("Matching Order Found: %v", orderKey)
+				err := stream.Send(order)
+				if err != nil {
+					return fmt.Errorf("error sending the message to the stream: %v", err)
+				}
+				break
+			}
+		}
+	}
+
+	return nil
+}
+
+func (s *server) UpdateOrders(stream orderManagementPb.OrderManagement_UpdateOrdersServer) error {
+	updatedOrdersStr := "Updated Order IDs: "
+
+	for {
+		order, err := stream.Recv()
+
+		if err == io.EOF {
+			return stream.SendAndClose(&wrappers.StringValue{Value: fmt.Sprintf("Orders processed %v", updatedOrdersStr)})
+		}
+
+		s.orderMap[order.Id] = order
+		log.Printf("Order ID %v Updated", order.Id)
+		updatedOrdersStr += order.Id + ", "
+	}
+}
+
 func (s *server) LoadOrders() {
-	orderJsonDbPath, _ := filepath.Abs("./data/example_orders.json")
+	orderJsonDbPath, _ := filepath.Abs("../data/example_orders.json")
 	orderData, err := ioutil.ReadFile(orderJsonDbPath)
 
 	if err != nil {
