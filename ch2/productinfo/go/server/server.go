@@ -107,6 +107,60 @@ func (s *server) UpdateOrders(stream orderManagementPb.OrderManagement_UpdateOrd
 	}
 }
 
+func (s *server) ProcessOrders(stream orderManagementPb.OrderManagement_ProcessOrdersServer) error {
+	batchMarker := 1
+	combinedShipmentMap := make(map[string]orderManagementPb.CombinedShipment)
+
+	for {
+		orderId, err := stream.Recv()
+		log.Printf("Reading Proc order: %s", orderId)
+		if err == io.EOF {
+			log.Printf("EOF : %s", orderId)
+			// TODO: resolve the warnings
+			for _, shipment := range combinedShipmentMap {
+				if err := stream.Send(&shipment); err != nil {
+					return err
+				}
+			}
+			// returning nil marks as the end of the server-side stream
+			return nil
+		}
+
+		if err != nil {
+			return err
+		}
+
+		dest := s.orderMap[orderId.Value].Destination
+		shipment, found := combinedShipmentMap[dest]
+
+		if found {
+			ord := s.orderMap[orderId.Value]
+			shipment.OrdersList = append(shipment.OrdersList, ord)
+			combinedShipmentMap[dest] = shipment
+		} else {
+			comShip := orderManagementPb.CombinedShipment{Id: "cmb - " + s.orderMap[orderId.Value].Destination, Status: "Processed"}
+			ord := s.orderMap[orderId.Value]
+			comShip.OrdersList = append(shipment.OrdersList, ord)
+			combinedShipmentMap[dest] = comShip
+			log.Println(len(comShip.OrdersList), comShip.Id)
+		}
+
+		if batchMarker == orderBatchSize {
+			for _, comb := range combinedShipmentMap {
+				log.Printf("Shipping : %v -> %v", comb.Id, len(comb.OrdersList))
+				if err := stream.Send(&comb); err != nil {
+					return err
+				}
+			}
+
+			batchMarker = 0
+			combinedShipmentMap = make(map[string]orderManagementPb.CombinedShipment)
+		} else {
+			batchMarker++
+		}
+	}
+}
+
 func (s *server) LoadOrders() {
 	orderJsonDbPath, _ := filepath.Abs("../data/example_orders.json")
 	orderData, err := ioutil.ReadFile(orderJsonDbPath)
@@ -121,7 +175,8 @@ func (s *server) LoadOrders() {
 }
 
 const (
-	port = ":50051"
+	port           = ":50051"
+	orderBatchSize = 3
 )
 
 func newServer() *server {

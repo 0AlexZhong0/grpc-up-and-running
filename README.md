@@ -8,4 +8,6 @@
 - The `UnimplementedProductInfoServer` must be embedded in the server struct definition.
 - Add notes to explain what the `go_package` option is, why we need it and that we need to first push to the repository first in order to import the pb defintions
 - `com.google.protobuf-gradle-plugin:0.8.10:` cannot be found as the plugin in the `build.gradle` file.
-- protoc does not have support for Apple Silicon chips yet, error ` Could not find protoc-3.15.6-osx-aarch_64.exe` occurs 
+- protoc does not have support for Apple Silicon chips yet, error ` Could not find protoc-3.15.6-osx-aarch_64.exe` occurs
+- Go module `github.com/golang/protobuf/wrappers` is not found, instead `github.com/golang/protobuf/ptypes/wrappers` is the new module.
+- typo in Figure 3.5, `Katlin` should be `Kotlin` instead.

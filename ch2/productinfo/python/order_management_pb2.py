@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZBgithub.com/0AlexZhong0/grpc-up-and-running-protos/order_management',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16order_management.proto\x12\tecommerce\x1a\x1egoogle/protobuf/wrappers.proto\"[\n\x05Order\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05items\x18\x02 \x03(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\x02\x12\x13\n\x0b\x64\x65stination\x18\x05 \x01(\t\"!\n\x10SearchOrderQuery\x12\r\n\x05query\x18\x01 \x01(\t2\xd0\x01\n\x0fOrderManagement\x12:\n\x08getOrder\x12\x1c.google.protobuf.StringValue\x1a\x10.ecommerce.Order\x12?\n\x0csearchOrders\x12\x1b.ecommerce.SearchOrderQuery\x1a\x10.ecommerce.Order0\x01\x12@\n\x0cupdateOrders\x12\x10.ecommerce.Order\x1a\x1c.google.protobuf.StringValue(\x01\x42\x44ZBgithub.com/0AlexZhong0/grpc-up-and-running-protos/order_managementb\x06proto3'
+  serialized_pb=b'\n\x16order_management.proto\x12\tecommerce\x1a\x1egoogle/protobuf/wrappers.proto\"[\n\x05Order\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05items\x18\x02 \x03(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\x02\x12\x13\n\x0b\x64\x65stination\x18\x05 \x01(\t\"!\n\x10SearchOrderQuery\x12\r\n\x05query\x18\x01 \x01(\t\"T\n\x10\x43ombinedShipment\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\x12$\n\nordersList\x18\x03 \x03(\x0b\x32\x10.ecommerce.Order2\xa0\x02\n\x0fOrderManagement\x12:\n\x08getOrder\x12\x1c.google.protobuf.StringValue\x1a\x10.ecommerce.Order\x12?\n\x0csearchOrders\x12\x1b.ecommerce.SearchOrderQuery\x1a\x10.ecommerce.Order0\x01\x12@\n\x0cupdateOrders\x12\x10.ecommerce.Order\x1a\x1c.google.protobuf.StringValue(\x01\x12N\n\rprocessOrders\x12\x1c.google.protobuf.StringValue\x1a\x1b.ecommerce.CombinedShipment(\x01\x30\x01\x42\x44ZBgithub.com/0AlexZhong0/grpc-up-and-running-protos/order_managementb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_wrappers__pb2.DESCRIPTOR,])
 
@@ -118,8 +118,56 @@ _SEARCHORDERQUERY = _descriptor.Descriptor(
   serialized_end=195,
 )
 
+
+_COMBINEDSHIPMENT = _descriptor.Descriptor(
+  name='CombinedShipment',
+  full_name='ecommerce.CombinedShipment',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='ecommerce.CombinedShipment.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='ecommerce.CombinedShipment.status', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ordersList', full_name='ecommerce.CombinedShipment.ordersList', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=197,
+  serialized_end=281,
+)
+
+_COMBINEDSHIPMENT.fields_by_name['ordersList'].message_type = _ORDER
 DESCRIPTOR.message_types_by_name['Order'] = _ORDER
 DESCRIPTOR.message_types_by_name['SearchOrderQuery'] = _SEARCHORDERQUERY
+DESCRIPTOR.message_types_by_name['CombinedShipment'] = _COMBINEDSHIPMENT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Order = _reflection.GeneratedProtocolMessageType('Order', (_message.Message,), {
@@ -136,6 +184,13 @@ SearchOrderQuery = _reflection.GeneratedProtocolMessageType('SearchOrderQuery', 
   })
 _sym_db.RegisterMessage(SearchOrderQuery)
 
+CombinedShipment = _reflection.GeneratedProtocolMessageType('CombinedShipment', (_message.Message,), {
+  'DESCRIPTOR' : _COMBINEDSHIPMENT,
+  '__module__' : 'order_management_pb2'
+  # @@protoc_insertion_point(class_scope:ecommerce.CombinedShipment)
+  })
+_sym_db.RegisterMessage(CombinedShipment)
+
 
 DESCRIPTOR._options = None
 
@@ -146,8 +201,8 @@ _ORDERMANAGEMENT = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=198,
-  serialized_end=406,
+  serialized_start=284,
+  serialized_end=572,
   methods=[
   _descriptor.MethodDescriptor(
     name='getOrder',
@@ -176,6 +231,16 @@ _ORDERMANAGEMENT = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_ORDER,
     output_type=google_dot_protobuf_dot_wrappers__pb2._STRINGVALUE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='processOrders',
+    full_name='ecommerce.OrderManagement.processOrders',
+    index=3,
+    containing_service=None,
+    input_type=google_dot_protobuf_dot_wrappers__pb2._STRINGVALUE,
+    output_type=_COMBINEDSHIPMENT,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

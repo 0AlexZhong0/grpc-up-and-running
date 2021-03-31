@@ -59,13 +59,17 @@ def run():
             print("Search result {0}:\n".format(idx + 1))
             print(search_order)
 
-        # update the orders
+        # update the orders - Client Streaming
         orders_json_data_path = "../data/example_orders.json"
         with open(orders_json_data_path) as orders_json:
             example_orders = json.load(orders_json)
 
         update_order_res = stub.updateOrders(generate_updated_orders(example_orders))
         print(update_order_res.value)
+
+        proc_order_iterator = generate_updated_orders(example_orders)
+        for shipment in stub.processOrders(proc_order_iterator):
+            print(shipment)
 
 
 if __name__ == "__main__":

@@ -3,6 +3,8 @@ github.com/0AlexZhong0/grpc-up-and-running-protos v0.0.0-20210327025935-f70b9e12
 github.com/0AlexZhong0/grpc-up-and-running-protos v0.0.0-20210327025935-f70b9e1201fe/go.mod h1:ESvb9fzZ4gJiZcPHV0E7cmTBSmFo2jE0T1lQPyLZ2Gk=
 github.com/0AlexZhong0/grpc-up-and-running-protos v0.0.0-20210331073600-09f99ec58ddf h1:qUXGUbuXlrtxeQ9p4tU/C8AI+PJfWcjEgc7raguKYno=
 github.com/0AlexZhong0/grpc-up-and-running-protos v0.0.0-20210331073600-09f99ec58ddf/go.mod h1:ESvb9fzZ4gJiZcPHV0E7cmTBSmFo2jE0T1lQPyLZ2Gk=
+github.com/0AlexZhong0/grpc-up-and-running-protos v0.0.0-20210331230711-8c81790d6ce4 h1:FUvn69BQd965mkK6/MbDFiBxo/q8s8IT2vZ5hWbUMl8=
+github.com/0AlexZhong0/grpc-up-and-running-protos v0.0.0-20210331230711-8c81790d6ce4/go.mod h1:ESvb9fzZ4gJiZcPHV0E7cmTBSmFo2jE0T1lQPyLZ2Gk=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
