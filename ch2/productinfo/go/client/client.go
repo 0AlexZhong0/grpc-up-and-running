@@ -2,10 +2,13 @@ package main
 
 import (
 	"context"
+	"io"
 	"log"
 	"time"
 
+	orderManagementPb "github.com/0AlexZhong0/grpc-up-and-running-protos/order_management"
 	pb "github.com/0AlexZhong0/grpc-up-and-running-protos/productinfo"
+
 	"google.golang.org/grpc"
 )
 
@@ -21,6 +24,7 @@ func main() {
 	}
 	defer conn.Close()
 	c := pb.NewProductInfoClient(conn)
+	orderManagementClient := orderManagementPb.NewOrderManagementClient(conn)
 
 	name := "Apple iPhone 11"
 	description := "Meet Apple iPhone 11.All-new dual-camera system with Ultra Wide and Night mode."
@@ -43,4 +47,16 @@ func main() {
 	}
 
 	log.Printf("Product: %v", product.String())
+
+	// order management
+	searchStream, _ := orderManagementClient.SearchOrders(ctx, &orderManagementPb.SearchOrderQuery{Query: "Si"})
+	for {
+		searchOrder, err := searchStream.Recv()
+
+		if err == io.EOF {
+			break
+		}
+
+		log.Print("Search Result: ", searchOrder)
+	}
 }
